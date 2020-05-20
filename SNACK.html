@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>SNACK and how it relates to the App Discovery Tool and the App Conversion Tool</title>
+  </head>
+
+  <body>
+    <h1>SNACK and the App Conversion and App Discovery Tools</h1>
+    <p><dfn>SNACK</dfn> is both an idea and a system made by Anton Derbenev back in 2018. SNACK stands for Standard Application and Conversion Kit - it is the name given to a program that seeks to organize files in a particular way. It has been noticed by him that IOCs, no matter what type of machinery they controlled and how they controlled it, there were always three specific things that were guaranteed to be on an IOC.</p>
+    <ul>
+      <li>IOC in its entirety</li>
+      <ul>
+        <li>Source files: files that would need to be implemented throughout all things of its type (like all motors, all injectors, etc.)
+          <ul>
+            <li>st.cmd</li>
+            <li>Any .db files</li>
+            <li>any Makefiles</li>
+          </ul>
+        </li>
+        <li>Generated files: files that would be created when the IOC runs, like data on how the machinery the IOC is linked to operates.
+          <ul>
+            <li>autosave files</li>
+          </ul>
+        </li>
+        <li>Compiled files: files that are specific to that machine alone (the 11ID injector)
+          <ul>
+            <li>Specific files telling how this pipe, vacuum, injector will operate</li>
+          </ul>
+        </li>
+        <li>Side stuff that is not relevant to the running of the IOC.</li>
+      </ul>
+    </ul>
+    <p>SNACK was supposed to take the compiled files?? and the source files and then merge them together to make a proper IOC. Then the machine and the IOC would start.  This is called a deployment. It ran constantly, like all IOCs that controlled the accelerator and the various beams were supposed to. The creation of SNACK was finished in fall 2018 by someone named Nathaniel Maytan. For this he was promoted to a job directly in NSLS-II as a person who works not only on machinery but on further standardization so that NSLS-II can keep running smoothly. For example, things like DIODE - a useful box that is supposed to contain many machinery to simplify control and code needed - is also developed by him.</p>
+    <p>At summer 2018 is where I come in. Mr. Derbenev realized that getting people to accept a new standard would require the smoothest of transitions as NSLS-II had basically been created by people not caring a whit about structure or standardization. It led to the mishmash of IOC "types" seen in the IOCs seen even today; both Git and Mercurial stuff involve examples of IOC types. However, it doubled as a more convenient way to restore IOC functionality because otherwise the IOC functionality was forever lost because of a power outage or a crash.</p>
+    <p>The SNACK system was going to be autonomized to the point where would either put in a file called snack.yml??? and then all the parts would be arranged</p>
+    <p>As IOCs are automatically generated to start with and they have all the necessary features to make a thing run, Mr. Derbenev assigned me to make the App Discovery Tool and the App Conversion Tool. The App Conversion Tool would merely show how many IOCs were arranged in whatever. This was easy because it involved looking for snack.yml setup files, which would have indicated that the IOC was SNACK-ified.</p>
+    <p>However, the App Conveersion Tool was more complicated.  It used Ansible to fetch the files from elsewhere, reorganize them and present them in a SNACK version, which involved these steps:</p>
+    <ol>
+      <li>The original IOC would be fetched using Ansible.</li>
+      <li>The IOC would be split into three parts and side stuff, as detailed above.</li>
+      <li>The source files would be put in a gitlab repository only for source files.</li>
+      <li>The compiled files??? would be put in the person's only repository, and then push into that person's personal github repositoy to show that they owned it.  It made addition of similar machines easier to implement</li>
+      <li>Upon deployment, the source and compiled??? files would be merged to make an IOC. The IOC would run as a constant program that could be shut off.</li>
+    </ol>
+    <p>It was legitimately useful: people in the core controls room tried out my program and it worked nicely for them. However, no one else wanted to use SNACK or its associated tools since they were focused on testing and only wanted direct upgrades like better machinery, not software upgrades that would take them much time to work.</p>
+  </body>
+</html>
